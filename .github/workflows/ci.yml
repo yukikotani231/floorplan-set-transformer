@@ -34,7 +34,8 @@ jobs:
         with:
           path: /tmp/.uv-cache
           key: uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
-      - run: uv run --dev ruff format --check src tests scripts
+      - run: uv sync --dev
+      - run: uv run ruff format --check src tests scripts
 
   lint:
     needs: setup
@@ -47,7 +48,8 @@ jobs:
         with:
           path: /tmp/.uv-cache
           key: uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
-      - run: uv run --dev ruff check src tests scripts
+      - run: uv sync --dev
+      - run: uv run ruff check src tests scripts
 
   typecheck:
     needs: setup
@@ -60,7 +62,8 @@ jobs:
         with:
           path: /tmp/.uv-cache
           key: uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
-      - run: uv run --dev mypy src
+      - run: uv sync --dev
+      - run: uv run mypy src
 
   test:
     needs: setup
@@ -73,4 +76,5 @@ jobs:
         with:
           path: /tmp/.uv-cache
           key: uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
-      - run: uv run --dev pytest
+      - run: uv sync --dev
+      - run: uv run pytest
