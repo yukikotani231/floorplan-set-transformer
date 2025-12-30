@@ -1,0 +1,55 @@
+# Default configuration for FloorPlan Set Transformer
+
+# Data settings
+data:
+  data_dir: "data/floorplancad"
+  normalize_coords: true
+  normalize_features: true
+  max_elements: 500  # Maximum elements per sample
+
+# Feature extraction settings
+# Available features: coordinates, center, length, angle, type
+features:
+  enabled_features:
+    - coordinates
+    - center
+    - length
+    - angle
+    - type
+
+# Model settings
+model:
+  num_classes: 36  # FloorPlanCAD has labels 1-35
+  d_model: 256
+  num_heads: 8
+  num_layers: 4
+  d_ff: 1024
+  dropout: 0.1
+  use_isab: true
+  num_inducing_points: 64
+  instance_embed_dim: 32
+
+# Training settings
+training:
+  batch_size: 32
+  num_epochs: 50
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  num_workers: 4
+  log_interval: 50  # Log every N batches
+
+# Loss settings
+loss:
+  semantic_weight: 1.0
+  instance_weight: 1.0
+  focal_gamma: 2.0
+
+# Evaluation settings
+evaluation:
+  iou_threshold: 0.5
+  cluster_bandwidth: 0.5
+
+# Paths
+paths:
+  checkpoint_dir: "checkpoints"
+  log_dir: "logs"
